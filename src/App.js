@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import { Component, Fragment,useContext } from 'react';
+import {Route,Routes} from 'react-router-dom'
 import './App.css';
+import NavBar from './components/nav-bar/nav-bar.component'
+import { UserContext } from './context/auth.context';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component{
+
+  render(){
+      const {UserContext}=this.props
+      const {currentUser}=UserContext
+    return (
+      <Fragment>
+        <Routes>
+          <Route path='/' element={<NavBar />} >
+            {currentUser
+              ?(<Route index element={<h1>hello world</h1>} />)
+              :(<Route index element={<h1>Not hello world</h1>} />)
+            }
+          </Route>
+            
+          
+        </Routes>
+      </Fragment>
+    )
+  }
 }
 
-export default App;
+const AppHook = (props)=>{
+  return(
+    <App
+      {...props}
+      UserContext={useContext(UserContext)}
+    />
+  )
+}
+
+export default AppHook;
