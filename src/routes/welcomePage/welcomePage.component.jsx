@@ -4,11 +4,12 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import './welcomePage.style.css'
+import { useNavigate } from "react-router-dom";
 
 class WelcomePage extends Component{
     
     render(){
-
+        const {navigate}=this.props
         const img ={
             main:'https://img.freepik.com/free-vector/professional-interior-designer-concept-decorator-planning-design-room-choosing-wall-color-furniture-style-house-renovation-isolated-flat-vector-illustration_613284-2060.jpg?w=740&t=st=1683112749~exp=1683113349~hmac=9e1cf154bda3d91d9fab7e24ae9e2ebc01f4bd9054ed5ad6c3c52806addab94b',
             createProfile:'https://assets-global.website-files.com/603fea6471d9d8559d077603/628b70fd5b92a65d185aecbc_freelancer-profile.png',
@@ -26,7 +27,7 @@ class WelcomePage extends Component{
                         <Col xs={6} className="p-3">
                             <h2 className="text-white" style={{width:60+'%',fontFamily:'Sigmar'}}>Make the work the way you like</h2>
                             <h4 className="text-white">Build rewarding relationships in the world’s Work Marketplace. Your home for the work you want.</h4>
-                            <Button variant="light">click Here</Button>
+                            <Button variant="light" onClick={()=>navigate('/register')}>Register</Button>
                         </Col>
                         <Col xs={6}>
                             <img src={img.main} alt="" className="rounded-3 w-100"/>
@@ -65,4 +66,13 @@ class WelcomePage extends Component{
         )
     }
 }
-export default WelcomePage;
+
+const WelcomePageHooks=(props)=>{
+    return(
+        <WelcomePage
+        {...props}
+        navigate={useNavigate()}
+        />
+    )
+}
+export default WelcomePageHooks;

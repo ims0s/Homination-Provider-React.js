@@ -14,7 +14,7 @@ class NavBar extends Component{
   
   render(){
         const {navigate,UserContext}=this.props;
-        const {currentUser}=UserContext;
+        const {currentUser,setCurrentUser}=UserContext;
         return(
           <Fragment>
             <Navbar bg="light" expand="lg" sticky="top" className="register">
@@ -38,7 +38,7 @@ class NavBar extends Component{
                 
                     {currentUser?(<NavDropdown title={currentUser.username} align={{lg:'end'}} className="me-1" id="dropdown-menu-align-responsive-1">
                       <NavDropdown.Item>Setting</NavDropdown.Item>
-                      <NavDropdown.Item>Logout</NavDropdown.Item>
+                      <NavDropdown.Item onClick={()=>{setCurrentUser(null); navigate('/')}}>Logout</NavDropdown.Item>
                     </NavDropdown>):(<Fragment>
                     <Nav.Link onClick={()=>navigate('/Login')}>Login</Nav.Link>
                     <Nav.Link onClick={()=>navigate('/register')}>Register</Nav.Link>

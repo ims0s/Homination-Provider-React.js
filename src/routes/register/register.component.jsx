@@ -33,13 +33,14 @@ class Register extends Component{
     }
     submitHandler=(event) => {
         const form = event.currentTarget;
+        const {REACT_APP_API}=process.env;
         if (form.checkValidity() === false) {
         event.preventDefault();
         event.stopPropagation();
         }else{
             event.preventDefault();
             event.stopPropagation();
-            axios.post('http://localhost:5000/auth/register',this.state.auth)
+            axios.post(`${REACT_APP_API}authProvider/register`,this.state.auth)
             .then(res => res.json)
             .then(data => {console.log(data);
                 this.props.nav('/login');
@@ -107,6 +108,13 @@ class Register extends Component{
                         Enter your Username!!
                     </Form.Control.Feedback>
                 </Form.Group>
+                <Form.Group className="mb-3" controlId="name">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control type="text" placeholder="Name" onChange={onChangeHandler} required/>
+                    <Form.Control.Feedback type="invalid">
+                        Enter your Name!!
+                    </Form.Control.Feedback>
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="email">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" placeholder="example@email.com" onChange={onChangeHandler}   required />
@@ -114,7 +122,20 @@ class Register extends Component{
                     Enter your email like this : example@email.com
                     </Form.Control.Feedback>
                 </Form.Group>
-
+                <Form.Group className="mb-3" controlId="phone_numbe">
+                    <Form.Label>Phone Nubmer</Form.Label>
+                    <Form.Control type="text" placeholder="Name" onChange={onChangeHandler} required/>
+                    <Form.Control.Feedback type="invalid">
+                        Enter your Phone Number!!
+                    </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="address">
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control type="text" placeholder="Name" onChange={onChangeHandler} required/>
+                    <Form.Control.Feedback type="invalid">
+                        Enter your Address!!
+                    </Form.Control.Feedback>
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="password">
                     <Form.Label>Password</Form.Label>
                     <OverlayTrigger trigger="focus" placement="right" overlay={Popover()}>
