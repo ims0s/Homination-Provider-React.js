@@ -3,6 +3,9 @@ import {Route,Routes} from 'react-router-dom'
 import './App.css';
 import NavBar from './components/nav-bar/nav-bar.component'
 import { UserContext } from './context/auth.context';
+import WelcomePage from './routes/welcomePage/welcomePage.component'
+import Register from './routes/register/register.component';
+import Login from './routes/Login/login.component'
 
 class App extends Component{
 
@@ -15,8 +18,10 @@ class App extends Component{
           <Route path='/' element={<NavBar />} >
             {currentUser
               ?(<Route index element={<h1>hello world</h1>} />)
-              :(<Route index element={<h1>Not hello world</h1>} />)
+              :(<Route index element={<WelcomePage/>} />)
             }
+            <Route path='register' element={<Register/>} />
+            <Route path='login' element={<Login/>} />
           </Route>
             
           

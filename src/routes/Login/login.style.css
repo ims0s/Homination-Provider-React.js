@@ -1,0 +1,18 @@
+.authContainer{
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    flex-direction: column;
+}
+h1{
+    margin-bottom: 30px;
+}
+.text-muted{
+    display: none;
+}
+.worng{
+    color: red;
+    font-weight: bold;
+}

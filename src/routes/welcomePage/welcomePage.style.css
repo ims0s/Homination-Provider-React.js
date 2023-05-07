@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Sigmar&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Konkhmer+Sleokchher&display=swap');
+.warning{
+    background-color: var(--bs-warning);
+    
+}
+.konkhmer{
+    font-family: 'Konkhmer Sleokchher';
+}
