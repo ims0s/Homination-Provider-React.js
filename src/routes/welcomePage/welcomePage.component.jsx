@@ -1,13 +1,25 @@
-import { Component,Fragment } from "react";
+import { Component,Fragment,useContext } from "react";
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import './welcomePage.style.css'
 import { useNavigate } from "react-router-dom";
-
+import { UserContext } from "../../context/auth.context";
 class WelcomePage extends Component{
+    constructor(){
+        super();
+        
+        
+    }
     
+    componentDidMount=()=>{
+        const {currentUser}=this.props.UserContext;
+        if(currentUser)
+            this.props.navigate('/dashboard')
+
+    }
+
     render(){
         const {navigate}=this.props
         const img ={
@@ -19,10 +31,10 @@ class WelcomePage extends Component{
             completeWork:'https://assets-global.website-files.com/603fea6471d9d8559d077603/628b70ffa31b5531f443a64a_welcome-freelancer.png',
             getPaid:'https://assets-global.website-files.com/603fea6471d9d8559d077603/628b70ff8b8243bcc66fa2aa_secure-payment.png',
         }
-
+        
         return(
             <Fragment>
-                <Container  lg='true' >
+                <Container className="mt-4"  lg='true' >
                     <Row className="warning p-2 rounded-3 mb-4">
                         <Col xs={6} className="p-3">
                             <h2 className="text-white" style={{width:60+'%',fontFamily:'Sigmar'}}>Make the work the way you like</h2>
@@ -72,6 +84,7 @@ const WelcomePageHooks=(props)=>{
         <WelcomePage
         {...props}
         navigate={useNavigate()}
+        UserContext={useContext(UserContext)}
         />
     )
 }

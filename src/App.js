@@ -6,7 +6,7 @@ import { UserContext } from './context/auth.context';
 import WelcomePage from './routes/welcomePage/welcomePage.component'
 import Register from './routes/register/register.component';
 import Login from './routes/Login/login.component'
-
+import Dashboard from './routes/dashboard/dashboard.component';
 class App extends Component{
 
   render(){
@@ -16,10 +16,10 @@ class App extends Component{
       <Fragment>
         <Routes>
           <Route path='/' element={<NavBar />} >
-            {currentUser
-              ?(<Route index element={<h1>hello world</h1>} />)
-              :(<Route index element={<WelcomePage/>} />)
-            }
+            <Route index element={<WelcomePage/>} />
+            <Route path='dashboard' element={<Dashboard/>}>
+                <Route path='proposals' element={<h1>propsoals</h1>}/>
+            </Route>
             <Route path='register' element={<Register/>} />
             <Route path='login' element={<Login/>} />
           </Route>

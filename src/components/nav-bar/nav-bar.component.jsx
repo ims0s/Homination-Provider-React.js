@@ -12,14 +12,23 @@ import { UserContext } from "../../context/auth.context";
 
 class NavBar extends Component{
   
+  ifLogin=()=>{
+    const {currentUser}=this.props.UserContext;
+    const {navigate}=this.props;
+    currentUser?navigate('dashboard'):navigate('/')
+        
+
+}
+
   render(){
         const {navigate,UserContext}=this.props;
         const {currentUser,setCurrentUser}=UserContext;
+        const {ifLogin}=this;
         return(
           <Fragment>
-            <Navbar bg="light" expand="lg" sticky="top" className="register">
+            <Navbar bg="light" expand="lg"  className="register">
           <Container fluid>
-            <Navbar.Brand onClick={()=>navigate('/')}>Homination</Navbar.Brand>
+            <Navbar.Brand onClick={ifLogin}>Homination</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
               <Nav
@@ -27,8 +36,8 @@ class NavBar extends Component{
                 style={{ maxHeight: '100px' }}
                 
               >
-                <Nav.Link onClick={()=>navigate('/')}>Home</Nav.Link>
-                <Nav.Link onClick={()=>navigate('/proposals')}>Proposals</Nav.Link>
+                
+                
               </Nav>
               <Nav
                 className=" my-2 my-lg-0"
@@ -49,7 +58,7 @@ class NavBar extends Component{
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        <div className="devider mb-4 register"></div>
+        <div className="devider "></div>
         <Outlet/>
         
 
