@@ -1,7 +1,5 @@
 import { Component , Fragment, useContext } from "react";
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -15,7 +13,7 @@ class NavBar extends Component{
   ifLogin=()=>{
     const {currentUser}=this.props.UserContext;
     const {navigate}=this.props;
-    currentUser?navigate('dashboard'):navigate('/')
+    currentUser?navigate('dashboard/main'):navigate('/')
         
 
 }

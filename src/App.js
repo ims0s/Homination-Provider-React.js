@@ -7,17 +7,18 @@ import WelcomePage from './routes/welcomePage/welcomePage.component'
 import Register from './routes/register/register.component';
 import Login from './routes/Login/login.component'
 import Dashboard from './routes/dashboard/dashboard.component';
+import Main from './routes/main/main.component';
 class App extends Component{
 
   render(){
-      const {UserContext}=this.props
-      const {currentUser}=UserContext
+    
     return (
       <Fragment>
         <Routes>
           <Route path='/' element={<NavBar />} >
             <Route index element={<WelcomePage/>} />
             <Route path='dashboard' element={<Dashboard/>}>
+                <Route path='main' element={<Main/>}/>
                 <Route path='proposals' element={<h1>propsoals</h1>}/>
             </Route>
             <Route path='register' element={<Register/>} />

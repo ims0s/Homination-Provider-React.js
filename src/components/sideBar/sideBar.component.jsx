@@ -1,8 +1,7 @@
-import { Component, Fragment } from "react";
+import { Component } from "react";
 import {
     CDBSidebar,
     CDBSidebarContent,
-    CDBSidebarFooter,
     CDBSidebarHeader,
     CDBSidebarMenu,
     CDBSidebarMenuItem,
@@ -17,9 +16,9 @@ class Sidebar extends Component {
             <div className="d-inline-flex mw-100 size">
                 <CDBSidebar className="size"  textColor="#fff" backgroundColor="#333">
                     <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-                        <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
+                        <span onClick={()=>(navigate('/dashboard/main'))} className="text-decoration-none" style={{ color: 'inherit' }}>
                             Sidebar
-                        </a>
+                        </span>
                     </CDBSidebarHeader>
 
                     <CDBSidebarContent className="sidebar-content">
@@ -27,7 +26,7 @@ class Sidebar extends Component {
                             <div>
                                 
                             </div>
-                            <CDBSidebarMenuItem onClick={()=>(navigate('/dashboard'))} icon="columns">Dashboard</CDBSidebarMenuItem>
+                            <CDBSidebarMenuItem onClick={()=>(navigate('/dashboard/main'))} icon="columns">Dashboard</CDBSidebarMenuItem>
 
 
                             <CDBSidebarMenuItem onClick={()=>(navigate('./proposals'))} icon="file-contract">Proposals</CDBSidebarMenuItem>

@@ -1,11 +1,16 @@
 import { Component,Fragment } from "react";
 import { Outlet } from "react-router-dom";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/sideBar/sideBar.component";
 class Dashboard extends Component{
 
+    componentDidMount(){
+        this.props.navigate('./main')
+
+    }
+
     render(){
+        
 
         return(
             <Fragment>
@@ -23,4 +28,15 @@ class Dashboard extends Component{
     }
 }
 
-export default Dashboard;
+
+const DashboardHooks=(props)=>{
+
+    return(
+        <Dashboard
+        {...props}
+        navigate={useNavigate()}
+        />
+    )
+}
+
+export default DashboardHooks;
