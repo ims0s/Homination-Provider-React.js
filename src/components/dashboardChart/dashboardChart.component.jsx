@@ -41,7 +41,6 @@ class DashboardChart extends Component {
 componentDidMount(){
     const { REACT_APP_API } = process.env
     const { currentUser } = this.props.UserContext
-    console.log(currentUser)
     const { username, token } = currentUser
     axios.get(`${REACT_APP_API}requests/provider/${username}`, { headers: { "Authorization": token } })
         .then(res => res.data)
@@ -53,7 +52,7 @@ componentDidMount(){
             }
             this.setState(()=>({numberOfProposlas:data.length}))
             data.map(e=>{
-                status[e.status]++
+                return (status[e.status]++)
             })
             return status;
         })
