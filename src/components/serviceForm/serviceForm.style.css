@@ -1,0 +1,8 @@
+.modalBody{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+.row{
+    width: 100%;
+}
