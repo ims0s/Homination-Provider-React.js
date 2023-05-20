@@ -1,0 +1,34 @@
+.categoryItem{
+    padding: 1rem;
+    
+}
+.categoryItem:hover >h3{
+    color: aqua;
+}
+.itemImage{
+    display: flex;
+    justify-content: center;
+}
+.provider{
+    justify-content: end;
+}
+.providerImage{
+    
+    border: 1px solid rgba(0, 0, 0, 0.13);
+}
+h3,h6{
+    margin: 0;
+}
+
+.column{
+    display: flex;
+    align-items: center;
+}
+@media (max-width: 991px) {
+    .provider{
+        justify-content: start;
+    }
+}
+.row{
+    margin-bottom: 1rem;
+}

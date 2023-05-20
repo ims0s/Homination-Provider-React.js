@@ -9,6 +9,7 @@ import Login from './routes/Login/login.component'
 import Dashboard from './routes/dashboard/dashboard.component';
 import Main from './routes/main/main.component';
 import Proposals from './routes/proposals/proposals.component';
+import Services from './routes/services/services.component';
 class App extends Component{
 
   render(){
@@ -21,6 +22,7 @@ class App extends Component{
             <Route path='dashboard' element={<Dashboard/>}>
                 <Route path='main' element={<Main/>}/>
                 <Route path='proposals' element={<Proposals/>}/>
+                <Route path='services' element={<Services/>}/>
             </Route>
             <Route path='register' element={<Register/>} />
             <Route path='login' element={<Login/>} />
