@@ -31,10 +31,8 @@ class Sidebar extends Component {
 
                             <CDBSidebarMenuItem onClick={()=>(navigate('./proposals'))} icon="file-contract">Proposals</CDBSidebarMenuItem>
 
-                            <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
-                            <CDBSidebarMenuItem icon="chart-pie">Analytics</CDBSidebarMenuItem>
-
-                            <CDBSidebarMenuItem icon="exclamation-circle">404 page</CDBSidebarMenuItem>
+                            <CDBSidebarMenuItem icon="user">Services</CDBSidebarMenuItem>
+                            
                         </CDBSidebarMenu>
                     </CDBSidebarContent>
 

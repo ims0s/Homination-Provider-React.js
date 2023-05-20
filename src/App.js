@@ -8,6 +8,7 @@ import Register from './routes/register/register.component';
 import Login from './routes/Login/login.component'
 import Dashboard from './routes/dashboard/dashboard.component';
 import Main from './routes/main/main.component';
+import Proposals from './routes/proposals/proposals.component';
 class App extends Component{
 
   render(){
@@ -19,7 +20,7 @@ class App extends Component{
             <Route index element={<WelcomePage/>} />
             <Route path='dashboard' element={<Dashboard/>}>
                 <Route path='main' element={<Main/>}/>
-                <Route path='proposals' element={<h1>propsoals</h1>}/>
+                <Route path='proposals' element={<Proposals/>}/>
             </Route>
             <Route path='register' element={<Register/>} />
             <Route path='login' element={<Login/>} />

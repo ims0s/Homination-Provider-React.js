@@ -30,10 +30,10 @@ class DashboardTable extends Component {
 
         return (
             data.splice(0,3).map(e => {
-                const {client_Name,status,Request_Description}=e;
+                const {client_Name,status,Request_Description,_id}=e;
                 const {propertyInMeter,location}=Request_Description
                 return (
-                    <tr>
+                    <tr key={_id}>
                         <td>{client_Name}</td>
                         <td className="table-rem">{location}</td>
                         <td className="table-rem">{`${propertyInMeter} ㎡`}</td>
