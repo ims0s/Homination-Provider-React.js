@@ -6,6 +6,7 @@ import ListGroupItem from "../../components/listGroupItem/listGroupItem.componen
 import Button from 'react-bootstrap/Button'
 import ServiceForm from "../../components/serviceForm/serviceForm.component";
 import axios from 'axios'
+import './services.style.css'
 class Services extends Component{
 
     constructor(){
@@ -106,7 +107,7 @@ class Services extends Component{
     render(){
         const {modal,validate}=this.state
         return(
-            <Fragment>
+            <div className="vh-100 over">
                 <div className="d-flex p-4 flex-row-reverse ">
                     <Button onClick={()=>this.setState(()=>({modal:true}))} variant="success">
                         + New Service
@@ -119,7 +120,7 @@ class Services extends Component{
                     
                     </ListGroup>
                 </Container>
-            </Fragment>
+            </div>
         )
     }
 }
