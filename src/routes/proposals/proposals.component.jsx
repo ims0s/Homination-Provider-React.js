@@ -5,13 +5,16 @@ import axios from "axios";
 import { UserContext } from "../../context/auth.context";
 import Dropdown from 'react-bootstrap/Dropdown'
 import './proposals.style.css'
+import TransferModal from "../../components/transferModal/transferModal.component";
 class Proposals extends Component{
 
     constructor(){
         super();
 
         this.state={
-            data:[]
+            data:[],
+            modal:false,
+            validate:false
         }
     }
 
@@ -24,12 +27,63 @@ class Proposals extends Component{
 
     }
 
+    modalHide=()=>{
+        this.setState(()=>({modal:false}))
+    }
+
+    onSubmitHandler=(event)=>{
+        const {username,token}=this.props.UserContext.currentUser;
+        const {REACT_APP_API}=process.env
+        const {to}=this.state;
+        const config = {
+            headers: {
+              Authorization: `${token}`,
+            },
+          };
+        
+        
+        const form = event.currentTarget;
+        const {id}=event.target
+        console.log(id)
+        
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }else{
+            event.preventDefault();
+            event.stopPropagation();
+            const transfer={
+                from:username,
+                to
+            }
+            axios.put(`${REACT_APP_API}/requests/${id}/transfer`,transfer,config)
+            .then(res=>res.data)
+            .then(data=>{
+                
+                this.setState({modal:false})
+                fetch(`${REACT_APP_API}requests/provider/${username}`).then(res => res.json()).then(data => this.setState(()=>({data})))
+            })
+            .catch(e=>console.log(e))
+        }
+        this.setState(() => ({validate:true}),()=>console.log(this.state.validate))
+
+    }
+
+    onChangeHandler=(e)=>{
+        const {value}=e.target;
+        
+        this.setState(()=>({
+            to:value
+        }),()=>console.log(this.state))
+    }
+
     showData=()=>{
         const data = this.state.data
         
 
         return (
             data.map(e => {
+                const {modal,validate}=this.state;
                 const {client_Name,status,Request_Description,_id}=e;
                 const {propertyInMeter,location,property_Type,request_Desc}=Request_Description
                 
@@ -53,6 +107,8 @@ class Proposals extends Component{
                                 <Fragment>
                                     <Dropdown.Item  onClick={(e)=>this.actionHandler(_id,e.target.id)} id="accept">Accept</Dropdown.Item>
                                     <Dropdown.Item onClick={(e)=>this.actionHandler(_id,e.target.id)} id="reject">reject</Dropdown.Item>
+                                    <Dropdown.Item onClick={()=>this.setState(()=>({modal:true})) } id="transfer" >Transfer</Dropdown.Item>
+                                    <TransferModal id={_id} UserContext={this.props.UserContext} validate={validate} onSubmitHandler={this.onSubmitHandler} onChangeHandler={this.onChangeHandler} modal={modal} onhide={this.modalHide}/>
                                     <Dropdown.Item onClick={()=>this.deleteHandler(_id)} >delete</Dropdown.Item>
                                 </Fragment>
                             ):(
@@ -71,6 +127,7 @@ class Proposals extends Component{
         const {REACT_APP_API}=process.env;
         const { currentUser } = this.props.UserContext;
         const { username, token } = currentUser;
+        
        await axios.put(`${REACT_APP_API}requests/${id}/${method}`,{username},{ headers: { "Authorization": token } })
 
        axios.get(`${REACT_APP_API}requests/provider/${username}`, { headers: { "Authorization": token } })
