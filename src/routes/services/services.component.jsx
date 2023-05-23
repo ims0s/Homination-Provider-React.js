@@ -23,11 +23,12 @@ class Services extends Component{
     }
 
     componentDidMount(){
+        const {REACT_APP_API}=process.env
         const {username}=this.props.UserContext.currentUser
         
         
         
-        fetch(`http://localhost:5000/services?provider=${username}`).then(res => res.json()).then(data => this.setState(()=>({data})))
+        fetch(`${REACT_APP_API}services?provider=${username}`).then(res => res.json()).then(data => this.setState(()=>({data})))
         
     }
 
@@ -76,7 +77,7 @@ class Services extends Component{
             .then(data=>{
                 
                 this.setState({modal:false})
-                fetch(`http://localhost:5000/services?provider=${username}`).then(res => res.json()).then(data => this.setState(()=>({data})))
+                fetch(`${REACT_APP_API}services?provider=${username}`).then(res => res.json()).then(data => this.setState(()=>({data})))
             })
             .catch(e=>console.log(e))
         }

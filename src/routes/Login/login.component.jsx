@@ -33,7 +33,7 @@ class Login extends Component{
             .then(res => res.data )
             .then((data)=> {
                 setCurrentUser(data)
-                nav('/')
+                nav('/dashboard/main')
 
             })
             .catch(res => {
