@@ -91,7 +91,20 @@ class Proposals extends Component{
                     <tr key={_id} className="tableRow">
                         <td>{client_Name}</td>
                         <td className="table-rem">{property_Type}</td>
-                        <td className="table-rem "> <p className="proposals-desc">{request_Desc}</p></td>
+                        <td className="table-rem "> <ul className="proposals-desc">
+                            {Object.keys(request_Desc).map(key=>{
+                                if(key==='color'){
+                                    return(
+                                        <li>
+                                            {`${key}:`} <div style={{backgroundColor:request_Desc.color,width:'10%',height:'10px',display:"inline-block"}}></div> {request_Desc.color}
+                                        </li>
+                                    )
+                                }
+                                return(
+                                    <li>{`${key}: ${request_Desc[key]}`}</li>
+                                )
+                            })}
+                        </ul></td>
                         <td className="table-rem">  {location}</td>
                         <td className="table-rem">{`${propertyInMeter} ㎡`}</td>
                         <td className={`text-${this.statusColor(status)} text-center`}>{status}</td>
@@ -158,12 +171,12 @@ class Proposals extends Component{
     render(){
 
         return(
-            <div className="card-bg w-100 d-flex flex-column wide  d-flex flex-column p-3">
+            <div className="card-bg w-100 d-flex flex-column wide vh-100  d-flex flex-column p-3 overTable">
                 <div className="d-flex flex-column p-0 h-100">
                     <div className="mx-4 mt-3 d-flex justify-content-between align-items-center">
                         <h4 className="font-weight-bold text-dark h5">Last Proposals</h4>
                     </div>
-                    <CDBTable borderless responsive>
+                    <CDBTable borderless responsive className="overTable">
                         <CDBTableHeader color="light">
                             <tr>
                                 <th>Client Name</th>

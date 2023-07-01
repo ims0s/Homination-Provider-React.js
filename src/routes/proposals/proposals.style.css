@@ -1,9 +1,12 @@
 .proposals-desc{
-    height: 100px;
+    height: fit-content;
     word-wrap: break-word;
    overflow-y: scroll hidden;
     
 }
 .tableRow{
     max-height: 100px;
+}
+.overTable{
+    overflow-y:scroll ;
 }
