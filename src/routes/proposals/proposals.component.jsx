@@ -171,12 +171,12 @@ class Proposals extends Component{
     render(){
 
         return(
-            <div className="card-bg w-100 d-flex flex-column wide vh-100  d-flex flex-column p-3 overTable">
+            <div className="card-bg w-100 d-flex flex-column wide vh-100 d-flex flex-column p-3 overTable">
                 <div className="d-flex flex-column p-0 h-100">
                     <div className="mx-4 mt-3 d-flex justify-content-between align-items-center">
                         <h4 className="font-weight-bold text-dark h5">Last Proposals</h4>
                     </div>
-                    <CDBTable borderless responsive className="overTable">
+                    <CDBTable borderless responsive>
                         <CDBTableHeader color="light">
                             <tr>
                                 <th>Client Name</th>

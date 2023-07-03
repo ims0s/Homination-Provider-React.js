@@ -23,10 +23,15 @@ class Services extends Component{
     }
 
     componentDidMount(){
-        const {REACT_APP_API}=process.env
-        const {username}=this.props.UserContext.currentUser
-        
-        
+        const {REACT_APP_API}=process.env;
+        const {username,location}=this.props.UserContext.currentUser;
+        const [long,lat]=location.coordinates;
+        fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}`)
+        .then(res => res.json())
+        .then(data =>{
+            const {locality,city,countryName}=data
+            this.setState(()=>({service:{location:locality+", "+city+", "+countryName,geolocation:location}}));
+        })
         
         fetch(`${REACT_APP_API}services?provider=${username}`).then(res => res.json()).then(data => this.setState(()=>({data})))
         
@@ -91,6 +96,28 @@ class Services extends Component{
       }
 
 
+      showSub=()=>{
+        if (this.state.service.categories==='Design And Planing'){
+            return(
+                <Fragment>
+                    <option value="Interior Designers And Decorators">Interior Designers And Decorators</option>
+                    <option value="Kitchen And Bathroom Designers">Kitchen And Bathroom Designers</option>
+                    <option value="Lighting Designers">Lighting Designers</option>
+                </Fragment>
+            )
+        }else if (this.state.service.categories==='Construction And Renovation'){
+           return (
+                <Fragment>
+                    <option value="General Contractors">General Contractors</option>
+                    <option value="Exterior And Siding Contractors">Exterior And Siding Contractors</option>
+                </Fragment>
+            )
+        }else {
+            return
+        }
+      }
+
+
     view = (card) => {
         
         const {title,provider,_id,desc,categories,price}=card;
@@ -106,14 +133,16 @@ class Services extends Component{
       }
     
     render(){
-        const {modal,validate}=this.state
+        const {modal,validate,service}=this.state;
+        console.log(service)
+        const {currentUser}=this.props.UserContext;
         return(
             <div className="vh-100 over">
                 <div className="d-flex p-4 flex-row-reverse ">
                     <Button onClick={()=>this.setState(()=>({modal:true}))} variant="success">
                         + New Service
                     </Button>
-                    <ServiceForm validate={validate} onSubmitHandler={this.onSubmitHandler} onChangeHandler={this.onChangeHandler} modal={modal} onhide={this.modalHide}/>
+                    <ServiceForm currentUser={currentUser} showSub={this.showSub} validate={validate} onSubmitHandler={this.onSubmitHandler} onChangeHandler={this.onChangeHandler} modal={modal} onhide={this.modalHide}/>
                 </div>
                 <Container className="my-3 px-5" >
                     <ListGroup>

@@ -7,9 +7,31 @@ import  Col  from "react-bootstrap/Col";
 import  InputGroup  from "react-bootstrap/InputGroup";
 import './serviceForm.style.css'
 class ServiceForm extends Component{
+    constructor(){
+        super();
+
+        this.state={
+            location:'',
+        }
+    }
     
+     componentDidMount(){
+            const[long,lat]=this.props.currentUser.location.coordinates;
+            
+            fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}`)
+            .then(res => res.json())
+            .then(data =>{
+                const {locality,city,countryName}=data
+                this.setState(()=>({location:locality+", "+city+", "+countryName}));
+            })
+        
+        
+    }
+
+
     render(){
-        const {modal,onhide,onChangeHandler,onSubmitHandler,validate}=this.props
+        const {modal,onhide,onChangeHandler,onSubmitHandler,validate,showSub}=this.props
+        const {location}=this.state
         
         return(
             <Modal show={modal} onHide={onhide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered >
@@ -21,13 +43,25 @@ class ServiceForm extends Component{
                 <Modal.Body >
                     <Form className="modalBody" noValidate validated={validate} onSubmit={onSubmitHandler} >
                         <Row>
-                            <Col lg={3}>
+                            <Col lg={4}>
                                 <Form.Group>
                                     <Form.Label>Category</Form.Label>
                                     <Form.Select id="categories" onChange={onChangeHandler} required>
                                         <option>Category</option>
-                                        <option value="Foundation Builder">Foundation Builder</option>
-                                        <option value="Interior Designers and Decorators">Interior Designers and Decorators</option>
+                                        <option value="Design And Planing">Design And Planing</option>
+                                        <option value="Construction And Renovation">Construction And Renovation</option>
+                                    </Form.Select>
+                                    <Form.Control.Feedback type="invalid">
+                                        Its not the same.
+                                    </Form.Control.Feedback>       
+                                </Form.Group>
+                            </Col>
+                            <Col lg={4}>
+                                <Form.Group>
+                                    <Form.Label>Sub Category</Form.Label>
+                                    <Form.Select id="subcategories" onChange={onChangeHandler} required>
+                                        <option>Sub Category</option>
+                                        {showSub()}
                                     </Form.Select>
                                     <Form.Control.Feedback type="invalid">
                                         Its not the same.
@@ -40,15 +74,17 @@ class ServiceForm extends Component{
                                 <Form.Control type="text" id="title" onChange={onChangeHandler} required/>
                             </Form.Group>
                             </Col>
-                            <Col lg={3}>
+                        </Row>
+                        <Row>
+                            <Col lg={4}>
                             <Form.Group>
-                                <Form.Label>Price For m²</Form.Label>
+                                <Form.Label>Price For m²   (min 50 max 800)</Form.Label>
                                 <InputGroup >
-                                    <Form.Control id="price" type="number" onChange={onChangeHandler} required />
+                                    <Form.Control id="price" max={800} min={50} type="number" onChange={onChangeHandler} required />
                                     <InputGroup.Text>E£</InputGroup.Text>
                                 </InputGroup>
                                 <Form.Control.Feedback type="invalid">
-                                        Its not the same.
+                                        50 min  800 max
                                     </Form.Control.Feedback>
                             </Form.Group>
 
@@ -56,9 +92,10 @@ class ServiceForm extends Component{
                             <Col>
                             <Form.Group>
                                 <Form.Label>Location</Form.Label>
-                                <Form.Control type="text" id="location" onChange={onChangeHandler} required/>
+                                <Form.Control defaultValue={location} type="text" id="location" onChange={onChangeHandler} required/>
                             </Form.Group>
                             </Col>
+
                         </Row>
                         <Row>
                             <Col lg='fluid'>

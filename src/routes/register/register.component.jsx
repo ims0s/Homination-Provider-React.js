@@ -16,9 +16,12 @@ class Register extends Component{
 
         this.state={
             validate:false,
-            auth:{email:'',
-            password:'',
-            username:'',},
+            auth:{
+                email:'',
+                password:'',
+                username:'',
+                location:['',''],
+                address:'',},
             passwordRules:[
                 {
                     name:'6-16 Characters',
@@ -33,6 +36,23 @@ class Register extends Component{
         }
         
     }
+
+    componentDidMount(){
+        let lat,long;
+        navigator.geolocation.getCurrentPosition(pos=>{
+            
+            lat=pos.coords.latitude;
+            long=pos.coords.longitude;
+            
+            fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}`)
+            .then(res => res.json())
+            .then(data =>{
+                const {locality,city,countryName}=data
+                this.setState(()=>({auth:{address:locality+", "+city+", "+countryName,location:{coordinates:[long,lat]}}}));
+            })
+        })
+    }
+
     submitHandler=(event) => {
         const form = event.currentTarget;
         const {REACT_APP_API}=process.env;
@@ -97,7 +117,7 @@ class Register extends Component{
     render(){
         const {validate,auth}= this.state
         const {onChangeHandler , submitHandler , Popover,} =this;
-        
+        console.log(auth)
         return(
             <Container className="authContainer" >
                
@@ -147,7 +167,7 @@ class Register extends Component{
                         </Form.Group>
                     </Row>
                     <Row>
-                        <Form.Group as={Col} className="mb-3" controlId="phone_numbe">
+                        <Form.Group as={Col} className="mb-3" controlId="phone_number">
                             <Form.Label>Phone Nubmer</Form.Label>
                             <Form.Control type="text" placeholder="Name" onChange={onChangeHandler} required/>
                             <Form.Control.Feedback type="invalid">
@@ -156,7 +176,7 @@ class Register extends Component{
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3" controlId="address">
                             <Form.Label>Address</Form.Label>
-                            <Form.Control type="text" placeholder="Name" onChange={onChangeHandler} required/>
+                            <Form.Control defaultValue={auth.address} type="text" placeholder="Name" onChange={onChangeHandler} required/>
                             <Form.Control.Feedback type="invalid">
                                 Enter your Address!!
                             </Form.Control.Feedback>
